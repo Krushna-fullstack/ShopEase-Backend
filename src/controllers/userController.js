@@ -73,3 +73,14 @@ export const getAllUsers = asyncHandler(async (req, res) => {
 
   res.json(users);
 });
+
+export const getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  res.json(user);
+});
