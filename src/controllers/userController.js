@@ -84,3 +84,8 @@ export const getUserById = asyncHandler(async (req, res) => {
 
   res.json(user);
 });
+
+export const logoutUser = asyncHandler(async (req, res) => {
+  res.clearCookie("token");
+  res.json({ message: "Logged out successfully" });
+});
