@@ -2,21 +2,13 @@ import { Router } from "express";
 import {
   createUser,
   loginUser,
-  logoutUser,
-  getAllUsers,
-  getUserById,
+  logoutCurrentUser,
 } from "../controllers/userController.js";
 
 const router = Router();
 
 router.route("/").post(createUser);
-
-router.route("/login").post(loginUser);
-
-router.post("/logout", logoutUser);
-
-router.route("/getAllUsers").get(getAllUsers);
-
-router.route("/:id").get(getUserById);
+router.post("/auth", loginUser);
+router.post("/logout", logoutCurrentUser);
 
 export default router;

@@ -1,5 +1,6 @@
 import asyncHandler from "../middlewares/asyncHandler.js";
 import { User } from "../models/userModel.js";
+import generateToken from "../utils/generateToken.js";
 import bcrypt from "bcryptjs";
 
 export const createUser = asyncHandler(async (req, res) => {
@@ -23,6 +24,8 @@ export const createUser = asyncHandler(async (req, res) => {
       email,
       password,
     });
+
+    generateToken(res, user._id);
 
     res.status(201).json({
       _id: user._id,
@@ -59,33 +62,14 @@ export const loginUser = asyncHandler(async (req, res) => {
     throw new Error("Invalid credentials");
   }
 
-  res.json({
+  generateToken(res, existingUser._id);
+
+  res.status(201).json({
     _id: existingUser._id,
     username: existingUser.username,
     email: existingUser.email,
     isAdmin: existingUser.isAdmin,
-    token: existingUser.getSignedToken(),
   });
 });
 
-export const getAllUsers = asyncHandler(async (req, res) => {
-  const users = await User.find({});
-
-  res.json(users);
-});
-
-export const getUserById = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id);
-
-  if (!user) {
-    res.status(404);
-    throw new Error("User not found");
-  }
-
-  res.json(user);
-});
-
-export const logoutUser = asyncHandler(async (req, res) => {
-  res.clearCookie("token");
-  res.json({ message: "Logged out successfully" });
-});
+export const logoutCurrentUser = asyncHandler(async (req, res) => {});
