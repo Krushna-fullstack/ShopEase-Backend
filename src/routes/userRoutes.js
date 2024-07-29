@@ -8,6 +8,7 @@ import {
   updateCurrentUserProfile,
   deleteUserById,
   getUserById,
+  updateUserById,
 } from "../controllers/userController.js";
 
 import { authenicate, authorizeAdmin } from "../middlewares/authMiddleware.js";
@@ -30,6 +31,7 @@ router
 router
   .route("/:id")
   .delete(authenicate, authorizeAdmin, deleteUserById)
-  .get(authenicate, authorizeAdmin, getUserById);
+  .get(authenicate, authorizeAdmin, getUserById)
+  .put(authenicate, authorizeAdmin, updateUserById);
 
 export default router;
