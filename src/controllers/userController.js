@@ -7,7 +7,7 @@ export const createUser = asyncHandler(async (req, res) => {
 
   if (!username || !email || !password) {
     res.status(400);
-    throw new Error("All fields are required");
+    throw new Error("Please fill all the inputs");
   }
 
   const existingUser = await User.findOne({ email });

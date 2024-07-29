@@ -18,9 +18,9 @@ app.use(morgan("dev"));
 
 // Import routes
 import userRoutes from "./routes/userRoutes.js";
-import categoryRoutes from "./routes/categoryRoutes.js";
+// import categoryRoutes from "./routes/categoryRoutes.js";
 
 app.use("/api/v1/users", userRoutes);
-app.use("/api/v1/categories", categoryRoutes);
+// app.use("/api/v1/categories", categoryRoutes);
 
 export { app };
